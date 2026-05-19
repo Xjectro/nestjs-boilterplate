@@ -29,10 +29,6 @@ export const envSchema = z.object({
 
   /** Prometheus */
   PROMETHEUS_METRICS_PATH: z.string().default('metrics'),
-
-  /** Swagger */
-  SWAGGER_TITLE: z.string().default('NestJS Boilerplate'),
-  SWAGGER_DESCRIPTION: z.string().default('NestJS Boilerplate API'),
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;
