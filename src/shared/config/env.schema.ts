@@ -2,6 +2,8 @@ import { z } from 'zod';
 
 export const envSchema = z.object({
   /** Application */
+  APP_NAME: z.string().default('NestJS Boilerplate'),
+  APP_DESCRIPTION: z.string().default('A NestJS boilerplate with batteries included'),
   NODE_ENV: z.enum(['development', 'production', 'staging', 'test']).default('development'),
   PORT: z.coerce.number().int().positive().default(3000),
 

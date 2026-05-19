@@ -6,13 +6,13 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { redisStore } from 'cache-manager-redis-yet';
-import { ConfigModule, type EnvConfig } from '@/shared/config';
-import { ContextModule } from '@/shared/context';
-import { ResponseInterceptor } from '@/shared/interceptors/response.interceptor';
 import { LoggerModule } from '@/integrations/logger/logger.module';
 import { MonitoringModule } from '@/integrations/monitoring/monitoring.module';
-import { HealthModule } from '@/shared/health/health.module';
 import { TurtleModule } from '@/modules/turtle/turtle.module';
+import { ConfigModule, type EnvConfig } from '@/shared/config';
+import { ContextModule } from '@/shared/context';
+import { HealthModule } from '@/shared/health/health.module';
+import { ResponseInterceptor } from '@/shared/interceptors/response.interceptor';
 
 @Module({
   imports: [

@@ -46,10 +46,10 @@ Single-file bootstrap that creates a `NestFastifyApplication` and registers:
 
 Third-party service wrappers, each self-contained:
 
-| Directory     | Purpose                                                             |
-| ------------- | ------------------------------------------------------------------- |
+| Directory     | Purpose                                                                 |
+| ------------- | ----------------------------------------------------------------------- |
 | `logger/`     | `LoggerModule` (Seq via `@jasonsoft/nestjs-seq`) + `LoggingInterceptor` |
-| `monitoring/` | `MonitoringModule` (Prometheus + Grafana) + `MetricsInterceptor`    |
+| `monitoring/` | `MonitoringModule` (Prometheus + Grafana) + `MetricsInterceptor`        |
 
 ### Shared (`src/shared/`)
 

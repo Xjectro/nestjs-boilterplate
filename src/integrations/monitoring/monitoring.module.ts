@@ -6,8 +6,8 @@ import {
   makeHistogramProvider,
   PrometheusModule,
 } from '@willsoto/nestjs-prometheus';
-import type { EnvConfig } from '@/shared/config';
 import { MetricsInterceptor } from '@/integrations/monitoring/metrics.interceptor';
+import type { EnvConfig } from '@/shared/config';
 
 const REQUEST_LABELS: Array<'method' | 'route' | 'status'> = ['method', 'route', 'status'];
 
