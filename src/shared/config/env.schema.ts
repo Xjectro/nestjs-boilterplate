@@ -9,6 +9,7 @@ export const envSchema = z.object({
 
   /** MongoDB */
   MONGODB_URI: z.string().url().default('mongodb://127.0.0.1:27017/turtles'),
+  MONGO_INITDB_DATABASE: z.string().default('turtles'),
 
   /** Redis / Cache */
   REDIS_URL: z.string().url().default('redis://127.0.0.1:6379'),

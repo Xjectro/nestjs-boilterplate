@@ -24,6 +24,7 @@ import { ResponseInterceptor } from '@/shared/interceptors/response.interceptor'
       inject: [ConfigService],
       useFactory: (config: ConfigService<EnvConfig, true>) => ({
         uri: config.get('MONGODB_URI'),
+        dbName: config.get('MONGO_INITDB_DATABASE'),
       }),
     }),
 
