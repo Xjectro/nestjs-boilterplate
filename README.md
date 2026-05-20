@@ -8,7 +8,7 @@
 | Category                 | Features                                                                                                      |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------- |
 | **HTTP**                 | Fastify adapter, Helmet security headers, multipart uploads (5 MB), global `ValidationPipe`                   |
-| **API Docs**             | Swagger JSON at `/swagger`, Scalar interactive reference at `/docs`, JWT Bearer auth scheme                    |
+| **API Docs**             | Swagger JSON at `/swagger`, Scalar interactive reference at `/docs`, JWT Bearer auth scheme                   |
 | **Data**                 | MongoDB 7 via Mongoose, Redis 7 cache (`cache-manager-redis-yet`), soft-delete plugin, pagination helper      |
 | **Resilience**           | Rate limiting (`ThrottlerGuard`), idempotency interceptor, graceful shutdown hooks                            |
 | **Observability**        | Seq structured logging, Prometheus metrics endpoint, correlation ID per request                               |
@@ -33,7 +33,8 @@ Creates a `NestFastifyApplication` and registers:
 
 ### App Module ([src/app.module.ts](src/app.module.ts))
 
-- `ConfigModule` — global, validates `.env` with Zod schema ([src/shared/config/env.schema.ts](src/shared/config/env.schema.ts))
+- `ConfigModule` — global, validates `.env` with Zod schema
+  ([src/shared/config/env.schema.ts](src/shared/config/env.schema.ts))
 - `ContextModule` — global, provides `RequestContext` (CLS) + `CorrelationIdMiddleware`
 - `EventEmitterModule` — in-process event bus
 - `MongooseModule` — connects via `MONGODB_URI`
@@ -47,9 +48,9 @@ Creates a `NestFastifyApplication` and registers:
 
 Third-party service wrappers, each self-contained:
 
-| Directory     | Purpose                                                                 |
-| ------------- | ----------------------------------------------------------------------- |
-| `logger/`     | `LoggerModule` (Seq via `@jasonsoft/nestjs-seq`) + `LoggingInterceptor` |
+| Directory     | Purpose                                                                                  |
+| ------------- | ---------------------------------------------------------------------------------------- |
+| `logger/`     | `LoggerModule` (Seq via `@jasonsoft/nestjs-seq`) + `LoggingInterceptor`                  |
 | `monitoring/` | `MonitoringModule` (Prometheus via `@willsoto/nestjs-prometheus`) + `MetricsInterceptor` |
 
 ### Shared ([src/shared/](src/shared/))
@@ -70,7 +71,8 @@ Core infrastructure with no external service coupling:
 
 ### Domain Modules ([src/modules/](src/modules/))
 
-- **Turtle** — Full CRUD with pagination, soft delete, Redis caching, event emitting, and a database seeder.
+- **Turtle** — Full CRUD with pagination, soft delete, Redis caching, event emitting, and a database
+  seeder.
 
 ## Repository Layout
 
@@ -140,12 +142,12 @@ make dev
 
 The dev stack brings up:
 
-| Service  | Image              | Exposed Port(s)                       |
-| -------- | ------------------ | ------------------------------------- |
-| api      | local build        | `$PORT` → 3000                        |
-| mongodb  | `mongo:7.0`        | `$MONGODB_PORT` → 27017               |
-| redis    | `redis:7.4`        | `$REDIS_PORT` → 6379                  |
-| seq      | `datalust/seq`     | `$SEQ_HTTP_PORT` → 80, `$SEQ_INGEST_PORT` → 5341 |
+| Service | Image          | Exposed Port(s)                                  |
+| ------- | -------------- | ------------------------------------------------ |
+| api     | local build    | `$PORT` → 3000                                   |
+| mongodb | `mongo:7.0`    | `$MONGODB_PORT` → 27017                          |
+| redis   | `redis:7.4`    | `$REDIS_PORT` → 6379                             |
+| seq     | `datalust/seq` | `$SEQ_HTTP_PORT` → 80, `$SEQ_INGEST_PORT` → 5341 |
 
 ### Environment Configuration
 
@@ -154,75 +156,75 @@ fast with clear error messages if required values are missing or malformed.
 
 ## npm Scripts
 
-| Script                | Description                              |
-| --------------------- | ---------------------------------------- |
-| `npm run start:dev`   | Start in watch mode                      |
-| `npm run start:debug` | Start in debug + watch mode              |
-| `npm run build`       | Compile TypeScript                       |
-| `npm run start:prod`  | Run compiled output                      |
-| `npm run lint`        | ESLint with auto-fix                     |
-| `npm run format`      | Prettier format                          |
-| `npm run format:check`| Prettier check (no writes)               |
-| `npm run test`        | Run unit tests                           |
-| `npm run test:e2e`    | Run e2e tests                            |
-| `npm run test:cov`    | Coverage report                          |
+| Script                 | Description                 |
+| ---------------------- | --------------------------- |
+| `npm run start:dev`    | Start in watch mode         |
+| `npm run start:debug`  | Start in debug + watch mode |
+| `npm run build`        | Compile TypeScript          |
+| `npm run start:prod`   | Run compiled output         |
+| `npm run lint`         | ESLint with auto-fix        |
+| `npm run format`       | Prettier format             |
+| `npm run format:check` | Prettier check (no writes)  |
+| `npm run test`         | Run unit tests              |
+| `npm run test:e2e`     | Run e2e tests               |
+| `npm run test:cov`     | Coverage report             |
 
 ## Make Targets
 
-| Target          | Description                                         |
-| --------------- | --------------------------------------------------- |
-| `make dev`      | Build and start the dev stack (attached)            |
-| `make dev-down` | Stop the dev stack and remove volumes + orphans     |
-| `make prod`     | Build production image and run with `.env` file     |
-| `make prod-down`| Stop the production container                       |
+| Target           | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `make dev`       | Build and start the dev stack (attached)        |
+| `make dev-down`  | Stop the dev stack and remove volumes + orphans |
+| `make prod`      | Build production image and run with `.env` file |
+| `make prod-down` | Stop the production container                   |
 
 ## Dockerfile Stages
 
 The multi-stage `Dockerfile` defines:
 
-| Stage       | Purpose                                              |
-| ----------- | ---------------------------------------------------- |
-| `base`      | Node 22 slim, sets WORKDIR                           |
-| `deps`      | Installs all dependencies                            |
-| `build`     | Compiles TypeScript (`npm run build`)                |
-| `prod-deps` | Installs production-only dependencies                |
-| `dev`       | Hot-reload development image (used by compose)       |
+| Stage       | Purpose                                               |
+| ----------- | ----------------------------------------------------- |
+| `base`      | Node 22 slim, sets WORKDIR                            |
+| `deps`      | Installs all dependencies                             |
+| `build`     | Compiles TypeScript (`npm run build`)                 |
+| `prod-deps` | Installs production-only dependencies                 |
+| `dev`       | Hot-reload development image (used by compose)        |
 | `runner`    | Minimal production image (copies `dist/` + prod deps) |
 
 ## Environment Variables
 
-| Variable                   | Default                             | Purpose                            |
-| -------------------------- | ----------------------------------- | ---------------------------------- |
-| `NODE_ENV`                 | `development`                       | Runtime environment                |
-| `APP_NAME`                 | `NestJS Boilerplate`                | Application name (Swagger title)   |
-| `APP_DESCRIPTION`          | `A NestJS boilerplate with batteries included` | Swagger description   |
-| `PORT`                     | `3000`                              | Fastify listen port                |
-| `MONGO_INITDB_DATABASE`    | —                                   | MongoDB initial database name      |
-| `MONGODB_URI`              | `mongodb://127.0.0.1:27017/turtles` | MongoDB connection string          |
-| `MONGODB_PORT`             | `27017`                             | MongoDB host port (compose only)   |
-| `REDIS_URL`                | `redis://127.0.0.1:6379`            | Redis connection string            |
-| `REDIS_PORT`               | `6379`                              | Redis host port (compose only)     |
-| `CACHE_TTL`                | `5`                                 | Cache TTL in seconds               |
-| `THROTTLE_TTL`             | `60`                                | Rate-limit window (seconds)        |
-| `THROTTLE_LIMIT`           | `100`                               | Requests per IP per window         |
-| `HEALTH_HEAP_THRESHOLD_MB` | `150`                               | Max heap before health check fails |
-| `HEALTH_RSS_THRESHOLD_MB`  | `300`                               | Max RSS before health check fails  |
-| `SEQ_SERVER_URL`           | —                                   | Seq ingestion endpoint (optional)  |
-| `SEQ_API_KEY`              | —                                   | Seq API key (optional)             |
-| `SEQ_SERVICE_NAME`         | `nestjs-boilerplate`                | Service name sent to Seq           |
-| `SEQ_HTTP_PORT`            | `8081`                              | Seq web UI host port (compose only)|
-| `SEQ_INGEST_PORT`          | `5341`                              | Seq ingestion host port (compose only) |
-| `PROMETHEUS_METRICS_PATH`  | `metrics`                           | Prometheus scrape path             |
+| Variable                   | Default                                        | Purpose                                |
+| -------------------------- | ---------------------------------------------- | -------------------------------------- |
+| `NODE_ENV`                 | `development`                                  | Runtime environment                    |
+| `APP_NAME`                 | `NestJS Boilerplate`                           | Application name (Swagger title)       |
+| `APP_DESCRIPTION`          | `A NestJS boilerplate with batteries included` | Swagger description                    |
+| `PORT`                     | `3000`                                         | Fastify listen port                    |
+| `MONGO_INITDB_DATABASE`    | —                                              | MongoDB initial database name          |
+| `MONGODB_URI`              | `mongodb://127.0.0.1:27017/turtles`            | MongoDB connection string              |
+| `MONGODB_PORT`             | `27017`                                        | MongoDB host port (compose only)       |
+| `REDIS_URL`                | `redis://127.0.0.1:6379`                       | Redis connection string                |
+| `REDIS_PORT`               | `6379`                                         | Redis host port (compose only)         |
+| `CACHE_TTL`                | `5`                                            | Cache TTL in seconds                   |
+| `THROTTLE_TTL`             | `60`                                           | Rate-limit window (seconds)            |
+| `THROTTLE_LIMIT`           | `100`                                          | Requests per IP per window             |
+| `HEALTH_HEAP_THRESHOLD_MB` | `150`                                          | Max heap before health check fails     |
+| `HEALTH_RSS_THRESHOLD_MB`  | `300`                                          | Max RSS before health check fails      |
+| `SEQ_SERVER_URL`           | —                                              | Seq ingestion endpoint (optional)      |
+| `SEQ_API_KEY`              | —                                              | Seq API key (optional)                 |
+| `SEQ_SERVICE_NAME`         | `nestjs-boilerplate`                           | Service name sent to Seq               |
+| `SEQ_HTTP_PORT`            | `8081`                                         | Seq web UI host port (compose only)    |
+| `SEQ_INGEST_PORT`          | `5341`                                         | Seq ingestion host port (compose only) |
+| `PROMETHEUS_METRICS_PATH`  | `metrics`                                      | Prometheus scrape path                 |
 
 ## API Endpoints
 
-| Route       | Description                                          |
-| ----------- | ---------------------------------------------------- |
-| `GET /docs` | Scalar interactive API reference                     |
-| `GET /swagger` | Raw OpenAPI JSON / Swagger UI                     |
-| `GET /health`  | Liveness check (heap, RSS, Redis)                 |
-| `GET /ready`   | Readiness check (MongoDB, Redis)                  |
-| `GET /metrics` | Prometheus metrics (path configurable)            |
+| Route          | Description                            |
+| -------------- | -------------------------------------- |
+| `GET /docs`    | Scalar interactive API reference       |
+| `GET /swagger` | Raw OpenAPI JSON / Swagger UI          |
+| `GET /health`  | Liveness check (heap, RSS, Redis)      |
+| `GET /ready`   | Readiness check (MongoDB, Redis)       |
+| `GET /metrics` | Prometheus metrics (path configurable) |
 
 ## Continuous Integration
 
